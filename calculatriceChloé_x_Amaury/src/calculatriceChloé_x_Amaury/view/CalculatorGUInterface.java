@@ -1,4 +1,5 @@
-package view;
+package calculatriceChloé_x_Amaury.view;
+
 
 import java.util.List;
 

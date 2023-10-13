@@ -1,4 +1,4 @@
-package model;
+package calculatriceChloé_x_Amaury.model;
 
 import java.util.Stack;
 
