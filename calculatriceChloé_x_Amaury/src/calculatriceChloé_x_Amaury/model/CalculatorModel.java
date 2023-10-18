@@ -1,8 +1,12 @@
 package calculatriceChloé_x_Amaury.model;
 
+import calculatriceChloé_x_Amaury.controler.CalculatorControler;
+
 import java.util.Stack;
 
 public class CalculatorModel implements CalculatorModelInterface {
+	
+	private CalculatorControler controler;
 
 	private double accu = 0;
 	Stack<Double> pileCalc; 
@@ -12,6 +16,7 @@ public class CalculatorModel implements CalculatorModelInterface {
 		//met le resultat sur la pileCalc
 		if(getAccu() != 0) {
 			pileCalc.push(getAccu());
+			updateStack();
 			setAccu(0);
 		}
 	}
@@ -20,7 +25,9 @@ public class CalculatorModel implements CalculatorModelInterface {
 	public double pop() {
 		// recupere le dernier element de la pile
 		if(pileCalc.size()>0) {
-			return pileCalc.pop();
+			double out = pileCalc.pop();
+			updateStack();
+			return out;
 		}
 		else{
 			//ne devrait pas arriver
@@ -33,9 +40,14 @@ public class CalculatorModel implements CalculatorModelInterface {
 		// supprime le dernier element de la pile
 		if(pileCalc.size()>0) {
 			pileCalc.pop();
+			updateStack();
 		}
 	}
 
+	public void updateStack() {
+		controler.change(pileCalc);
+	}
+	
 	@Override
 	public void swap() {
 		//échanger l’ordre des deux derniers opérandes
@@ -119,6 +131,7 @@ public class CalculatorModel implements CalculatorModelInterface {
 
 	public void setAccu(double accu) {
 		this.accu = accu;
+		controler.change(Double.toString(accu));
 	}
 
 }
