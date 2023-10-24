@@ -9,7 +9,13 @@ public class CalculatorModel implements CalculatorModelInterface {
 	private CalculatorControler controler;
 
 	private double accu = 0;
-	Stack<Double> pileCalc; 
+	Stack<Double> pileCalc = new Stack<Double>(); 
+	
+	public CalculatorModel() {
+        // Initialize the controler
+		this.controler = new CalculatorControler();
+    }
+
 	
 	@Override
 	public void push() {

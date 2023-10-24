@@ -7,6 +7,8 @@ public interface CalculatorControlerInterface {
 	
 	public void change(List<Double> stackDatea);
 	
+	public void push();
+	
 	public void swap();
 	
 	public void clear();
