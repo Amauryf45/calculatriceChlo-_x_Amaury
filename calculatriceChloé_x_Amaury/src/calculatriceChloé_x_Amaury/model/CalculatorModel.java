@@ -6,25 +6,19 @@ import java.util.Stack;
 
 public class CalculatorModel implements CalculatorModelInterface {
 	
-	private CalculatorControler controler;
 
 	private double accu = 0;
 	Stack<Double> pileCalc = new Stack<Double>(); 
-	
-	public CalculatorModel() {
-        // Initialize the controler
-		this.controler = new CalculatorControler();
-    }
 
 	
 	@Override
-	public void push() {
+	public Stack<Double> push() {
 		//met le resultat sur la pileCalc
 		if(getAccu() != 0) {
 			pileCalc.push(getAccu());
-			updateStack();
 			setAccu(0);
 		}
+		return pileCalc;
 	}
 
 	@Override
@@ -32,7 +26,6 @@ public class CalculatorModel implements CalculatorModelInterface {
 		// recupere le dernier element de la pile
 		if(pileCalc.size()>0) {
 			double out = pileCalc.pop();
-			updateStack();
 			return out;
 		}
 		else{
@@ -42,20 +35,18 @@ public class CalculatorModel implements CalculatorModelInterface {
 	}
 
 	@Override
-	public void drop() {
+	public Stack<Double> drop() {
 		// supprime le dernier element de la pile
 		if(pileCalc.size()>0) {
 			pileCalc.pop();
-			updateStack();
 		}
+		return pileCalc;
 	}
 
-	public void updateStack() {
-		controler.change(pileCalc);
-	}
+
 	
 	@Override
-	public void swap() {
+	public Stack<Double> swap() {
 		//échanger l’ordre des deux derniers opérandes
 		if(pileCalc.size()>1) {
 			double acc0 = getAccu();
@@ -67,17 +58,19 @@ public class CalculatorModel implements CalculatorModelInterface {
 			push();
 			setAccu(acc0);
 		}
+		return(pileCalc);
 	}
 
 	@Override
-	public void clear() {
+	public Stack<Double> clear() {
 		// reinitialise la pile et l'accumulateur
-		pileCalc.clear();	
+		pileCalc.clear();
 		setAccu(0);
+		return(pileCalc);
 	}
 
 	@Override
-	public void add() {
+	public Stack<Double> add() {
 		//addition
 		if(getAccu()==0) {
 			setAccu(pop());
@@ -85,10 +78,11 @@ public class CalculatorModel implements CalculatorModelInterface {
 		setAccu(getAccu()+pop());
 		push();
 		setAccu(0);
+		return(pileCalc);
 	}
 
 	@Override
-	public void substract() {
+	public Stack<Double> substract() {
 		//soustraction
 		if(getAccu()==0) {
 			setAccu(pop());
@@ -96,10 +90,11 @@ public class CalculatorModel implements CalculatorModelInterface {
 		setAccu(getAccu()-pop());
 		push();
 		setAccu(0);
+		return(pileCalc);
 	}
 
 	@Override
-	public void multiply() {
+	public Stack<Double> multiply() {
 		//multiplication
 		if(getAccu()==0) {
 			setAccu(pop());
@@ -107,10 +102,11 @@ public class CalculatorModel implements CalculatorModelInterface {
 		setAccu(getAccu()*pop());
 		push();
 		setAccu(0);
+		return(pileCalc);
 	}
 
 	@Override
-	public void divide() {
+	public Stack<Double> divide() {
 		//division
 		if(getAccu()==0) {
 			setAccu(pop());
@@ -118,17 +114,17 @@ public class CalculatorModel implements CalculatorModelInterface {
 		setAccu(getAccu()/pop());
 		push();
 		setAccu(0);
+		return(pileCalc);
 	}
 
 	@Override
-	public void opposite() {
+	public Stack<Double> opposite() {
 		// met un -
 		if(getAccu()==0){
 			setAccu(pop());
 		}
 		setAccu(-getAccu());
-		push();
-		setAccu(0);
+		return push();
 	}
 
 	public double getAccu() {
@@ -137,7 +133,6 @@ public class CalculatorModel implements CalculatorModelInterface {
 
 	public void setAccu(double accu) {
 		this.accu = accu;
-		controler.change(Double.toString(accu));
 	}
 
 }

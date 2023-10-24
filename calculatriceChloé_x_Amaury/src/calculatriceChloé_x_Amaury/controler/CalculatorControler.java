@@ -8,7 +8,10 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	
 	private CalculatorModel model;
 	
-
+    public CalculatorControler() {
+        // Initialize the model in the constructor
+        this.model = new CalculatorModel();
+    }
 
 	@Override
 	public void change(String accu) {
@@ -19,55 +22,64 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	@Override
 	public void change(List<Double> stackDatea) {
 		// TODO Auto-generated method stub
+		
+		//afficher la pile dans la calculette
 
 	}
 	
 	@Override
 	public void push() {
 		// TODO Auto-generated method stub
-		model.push();
+		change(model.push());
+		change("");
 	}
 
 	@Override
 	public void swap() {
 		// TODO Auto-generated method stub
-		model.swap();
+		change(model.swap());
 	}
 
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		model.clear();
+		change(model.clear());
+		change("");
 	}
 
 	@Override
 	public void add() {
 		// TODO Auto-generated method stub
-		model.add();
+		change(model.add());
+		change("");
 	}
 
 	@Override
 	public void substract() {
 		// TODO Auto-generated method stub
-		model.substract();
+		change(model.substract());
+		change("");
 	}
 
 	@Override
 	public void multiply() {
 		// TODO Auto-generated method stub
-		model.multiply();
+		change(model.multiply());
+		change("");
 	}
 
 	@Override
 	public void divide() {
 		// TODO Auto-generated method stub
-		model.divide();
+		change(model.divide());
+		change("");
 	}
 
 	@Override
 	public void opposite() {
 		// TODO Auto-generated method stub
-		model.opposite();
+		change(model.opposite());
+		change("");
 	}
 
 }

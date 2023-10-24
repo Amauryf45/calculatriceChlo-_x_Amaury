@@ -1,24 +1,26 @@
 package calculatriceChloé_x_Amaury.model;
 
+import java.util.Stack;
+
 public interface CalculatorModelInterface {
 	
-	public void push();
+	public Stack<Double> push();
 	
 	public double pop();
 	
-	public void drop();
+	public Stack<Double> drop();
 	
-	public void swap();
+	public Stack<Double> swap();
 	
-	public void clear();
+	public Stack<Double> clear();
 	
-	public void add();
+	public Stack<Double> add();
 	
-	public void substract();
+	public Stack<Double> substract();
 	
-	public void multiply();
+	public Stack<Double> multiply();
 	
-	public void divide();
+	public Stack<Double> divide();
 	
-	public void opposite();
+	public Stack<Double> opposite();
 }
