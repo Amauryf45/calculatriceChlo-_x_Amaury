@@ -14,10 +14,17 @@ public class CalculatorControler implements CalculatorControlerInterface {
     }
 
 	@Override
-	public void change(String accu) {
+	public String change(String accu) {
 		// TODO Auto-generated method stub
-		model.setAccu(Double.parseDouble(Double.toString(model.getAccu())+accu));
-	}
+		if(accu == "") {
+			model.setAccu(0);
+			return("0");
+		}
+		else {
+			model.setAccu(Double.parseDouble(Double.toString(model.getAccu())+accu));
+			return(Double.toString(model.getAccu())+accu);
+			}
+		}
 
 	@Override
 	public void change(List<Double> stackDatea) {

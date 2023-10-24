@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
 
@@ -21,7 +22,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
 	
 	private CalculatorControler controler;
 	
-	public String input = "";
+	public Text zero = new Text("0");
 	
 	public CalculatorGUI() {
         // Initialize the controler
@@ -49,6 +50,8 @@ public class CalculatorGUI implements CalculatorGUInterface {
             numberButtons[i] = new Button(String.valueOf(i));
         }
 
+        Text accu = new Text("0");
+        
         Button addButton = new Button("+");
         Button subtractButton = new Button("-");
         Button multiplyButton = new Button("*");
@@ -58,6 +61,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         Button equalsButton = new Button("=");
         Button clearButton = new Button("C");
 
+        
         // Ajoutez les boutons à la grille
         grid.add(vBox, 0, 0, 4, 1);
         for (int i = 1; i <= 9; i++) {
@@ -74,20 +78,22 @@ public class CalculatorGUI implements CalculatorGUInterface {
         grid.add(oppositeButton, 2, 5);
         grid.add(equalsButton, 2, 4);
         grid.add(clearButton, 0, 4);
+        
+        grid.add(accu,0,0);
 
         // Gérez les événements des boutons
         for (int i = 0; i < 10; i++) {
             final int number = i;
-            numberButtons[i].setOnAction(event -> handleNumberClick(number));
+            numberButtons[i].setOnAction(event -> handleNumberClick(number,accu));
         }
-        addButton.setOnAction(event -> handleOperationClick("+"));
-        subtractButton.setOnAction(event -> handleOperationClick("-"));
-        multiplyButton.setOnAction(event -> handleOperationClick("*"));
-        divideButton.setOnAction(event -> handleOperationClick("/"));
-        swapButton.setOnAction(event -> handleOperationClick("swap"));
-        oppositeButton.setOnAction(event -> handleOperationClick("opposite"));
-        equalsButton.setOnAction(event -> handleEqualsClick());
-        clearButton.setOnAction(event -> handleClearClick());
+        addButton.setOnAction(event -> handleOperationClick("+",accu));
+        subtractButton.setOnAction(event -> handleOperationClick("-",accu));
+        multiplyButton.setOnAction(event -> handleOperationClick("*",accu));
+        divideButton.setOnAction(event -> handleOperationClick("/",accu));
+        swapButton.setOnAction(event -> handleOperationClick("swap",accu));
+        oppositeButton.setOnAction(event -> handleOperationClick("opposite",accu));
+        equalsButton.setOnAction(event -> handleEqualsClick(accu));
+        clearButton.setOnAction(event -> handleClearClick(accu));
 
         // Créez une scène
         Scene scene = new Scene(grid, 300, 400);
@@ -96,38 +102,44 @@ public class CalculatorGUI implements CalculatorGUInterface {
         primaryStage.show();
     }
 
-    private void handleNumberClick(int number) {
-        controler.change(String.valueOf(number));
+    private void handleNumberClick(int number, Text accu) {
+		accu.setText(controler.change(String.valueOf(number)));
+        
     }
 
-    private void handleOperationClick(String operation) {
+    private void handleOperationClick(String operation, Text accu) {
     	switch (operation) {
     		case "+":
     			controler.add();
+    			accu.setText("0");
     			break;
     		case "-":
     			controler.substract();
+    			accu.setText("0");
     			break;
     		case "*":
     			controler.multiply();
+    			accu.setText("0");
     			break;
     		case "/":
     			controler.divide();
+    			accu.setText("0");
     			break;
     		case "swap":
     			controler.swap();
     			break;
     		case "opposite":
     			controler.opposite();
+    			accu.setText("0");
     			break;
     	}
     }
 
-    private void handleEqualsClick() {
+    private void handleEqualsClick(Text accu) {
        	controler.push();
     }
 
-    private void handleClearClick() {
+    private void handleClearClick(Text accu) {
         controler.clear();
     }
 	
