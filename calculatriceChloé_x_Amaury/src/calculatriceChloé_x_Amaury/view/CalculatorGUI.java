@@ -58,6 +58,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         Button divideButton = new Button("/");
         Button swapButton = new Button("swap");
         Button oppositeButton = new Button("opposite");
+        Button pointButton = new Button(".");
         Button equalsButton = new Button("=");
         Button clearButton = new Button("C");
 
@@ -76,10 +77,11 @@ public class CalculatorGUI implements CalculatorGUInterface {
         grid.add(divideButton, 3, 4);
         grid.add(swapButton, 3, 5);
         grid.add(oppositeButton, 2, 5);
+        grid.add(pointButton, 1, 5);
         grid.add(equalsButton, 2, 4);
         grid.add(clearButton, 0, 4);
         
-        grid.add(accu,0,0);
+        grid.add(accu,3,0);
 
         // Gérez les événements des boutons
         for (int i = 0; i < 10; i++) {
@@ -92,6 +94,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         divideButton.setOnAction(event -> handleOperationClick("/",accu));
         swapButton.setOnAction(event -> handleOperationClick("swap",accu));
         oppositeButton.setOnAction(event -> handleOperationClick("opposite",accu));
+        pointButton.setOnAction(event -> handleOperationClick(".",accu));
         equalsButton.setOnAction(event -> handleEqualsClick(accu));
         clearButton.setOnAction(event -> handleClearClick(accu));
 
@@ -103,25 +106,31 @@ public class CalculatorGUI implements CalculatorGUInterface {
     }
 
     private void handleNumberClick(int number, Text accu) {
-		accu.setText(controler.change(String.valueOf(number)));
-        
+    	if(accu.getText()=="0") {
+    		accu.setText("");
+    	}
+		accu.setText(accu.getText()+ String.valueOf(number));
     }
 
     private void handleOperationClick(String operation, Text accu) {
     	switch (operation) {
     		case "+":
+    			controler.change(accu.getText());
     			controler.add();
     			accu.setText("0");
     			break;
     		case "-":
+    			controler.change(accu.getText());
     			controler.substract();
     			accu.setText("0");
     			break;
     		case "*":
+    			controler.change(accu.getText());
     			controler.multiply();
     			accu.setText("0");
     			break;
     		case "/":
+    			controler.change(accu.getText());
     			controler.divide();
     			accu.setText("0");
     			break;
@@ -129,8 +138,14 @@ public class CalculatorGUI implements CalculatorGUInterface {
     			controler.swap();
     			break;
     		case "opposite":
+    			controler.change(accu.getText());
     			controler.opposite();
     			accu.setText("0");
+    			break;
+    		case ".":
+    			if(!accu.getText().contains(".")) {
+    				accu.setText(accu.getText()+ ".");
+    			}
     			break;
     	}
     }
