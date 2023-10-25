@@ -14,40 +14,15 @@ public class CalculatorControler implements CalculatorControlerInterface {
     }
 
 	@Override
-	public String change(String accu) {
+	public void change(String accu) {
 		// TODO Auto-generated method stub
 		if(accu == "") {
 			model.setAccu(0);
-			return("0");
-		}
-		else if(accu==".") {
-			String oldAccu = Double.toString(model.getAccu());
-			if(oldAccu.endsWith(".0")) { //si le nombre en place est un entier 
-				model.setAccu(Double.parseDouble(oldAccu));
-				return(oldAccu.substring(0,oldAccu.length()-1));
-			}
-			else {
-				return(oldAccu);
-			}
 		}
 		else {
-			if(Double.toString(model.getAccu()).endsWith(".0")) {
-				//Si accu était entier
-				String oldAccu = Double.toString(model.getAccu());
-				String newAccu = oldAccu.substring(0, oldAccu.length() - 2)+accu; //retirer ".0"
-				model.setAccu(Double.parseDouble(newAccu));
-				if(newAccu.startsWith("0")) {
-					// retirer le 0 devant un nombre 
-					newAccu = newAccu.substring(1, newAccu.length());
-				}
-				return(newAccu);
-			}
-			else {
-				model.setAccu(Double.parseDouble(Double.toString(model.getAccu())+accu));
-				return(Double.toString(model.getAccu()));
-			}
-			}
+			model.setAccu(Double.parseDouble(accu));
 		}
+	}
 
 	@Override
 	public void change(List<Double> stackDatea) {

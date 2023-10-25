@@ -3,7 +3,7 @@ package calculatriceChloé_x_Amaury.controler;
 import java.util.List;
 
 public interface CalculatorControlerInterface {
-	public String change(String accu);
+	public void change(String accu);
 	
 	public void change(List<Double> stackDatea);
 	
