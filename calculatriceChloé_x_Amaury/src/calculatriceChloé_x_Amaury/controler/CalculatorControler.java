@@ -3,6 +3,7 @@ package calculatriceChloé_x_Amaury.controler;
 import calculatriceChloé_x_Amaury.model.CalculatorModel;
 
 import java.util.List;
+import java.util.Stack;
 
 public class CalculatorControler implements CalculatorControlerInterface {
 	
@@ -25,7 +26,7 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	}
 
 	@Override
-	public void change(List<Double> stackDatea) {
+	public void change(List<Double> stackData) {
 		// TODO Auto-generated method stub
 		
 		//afficher la pile dans la calculette
@@ -33,63 +34,58 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	}
 	
 	@Override
-	public void push() {
+	public Stack<Double> push() {
 		// TODO Auto-generated method stub
-		change(model.push());
 		change("");
+		return model.push();
 	}
 
 	@Override
-	public void swap() {
+	public Stack<Double> swap() {
 		// TODO Auto-generated method stub
-		change(model.swap());
+		return(model.swap());
 	}
 
 	@Override
-	public void clear() {
+	public Stack<Double> clear() {
 		// TODO Auto-generated method stub
-		change(model.clear());
 		change("");
+		return(model.clear());
 	}
 
 	@Override
-	public void add() {
+	public Stack<Double> add() {
 		// TODO Auto-generated method stub
-		change(model.add());
 		change("");
+		return(model.add());
 	}
 
 	@Override
-	public void substract() {
+	public Stack<Double> substract() {
 		// TODO Auto-generated method stub
-		change(model.substract());
 		change("");
+		return(model.substract());
 	}
 
 	@Override
-	public void multiply() {
+	public Stack<Double> multiply() {
 		// TODO Auto-generated method stub
-		change(model.multiply());
 		change("");
+		return(model.multiply());
 	}
 
 	@Override
-	public void divide() {
+	public Stack<Double> divide() {
 		// TODO Auto-generated method stub
-		change(model.divide());
 		change("");
+		return(model.divide());
 	}
 
 	@Override
-	public void opposite() {
+	public Stack<Double> opposite() {
 		// TODO Auto-generated method stub
-		change(model.opposite());
 		change("");
-	}
-
-	public void point() {
-		// TODO Auto-generated method stub
-		
+		return(model.opposite());
 	}
 
 }
