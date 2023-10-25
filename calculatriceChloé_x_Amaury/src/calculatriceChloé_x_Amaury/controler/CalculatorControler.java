@@ -36,7 +36,6 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	@Override
 	public Stack<Double> push() {
 		// TODO Auto-generated method stub
-		change("");
 		return model.push();
 	}
 
@@ -49,42 +48,36 @@ public class CalculatorControler implements CalculatorControlerInterface {
 	@Override
 	public Stack<Double> clear() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.clear());
 	}
 
 	@Override
 	public Stack<Double> add() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.add());
 	}
 
 	@Override
 	public Stack<Double> substract() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.substract());
 	}
 
 	@Override
 	public Stack<Double> multiply() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.multiply());
 	}
 
 	@Override
 	public Stack<Double> divide() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.divide());
 	}
 
 	@Override
 	public Stack<Double> opposite() {
 		// TODO Auto-generated method stub
-		change("");
 		return(model.opposite());
 	}
 

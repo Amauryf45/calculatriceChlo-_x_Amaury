@@ -58,7 +58,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         Button swapButton = new Button("swap");
         Button oppositeButton = new Button("opposite");
         Button pointButton = new Button(".");
-        Button equalsButton = new Button("=");
+        Button pushButton = new Button("push");
         Button clearButton = new Button("C");
 
         
@@ -77,7 +77,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         grid.add(swapButton, 3, 5);
         grid.add(oppositeButton, 2, 5);
         grid.add(pointButton, 1, 5);
-        grid.add(equalsButton, 2, 4);
+        grid.add(pushButton, 2, 4);
         grid.add(clearButton, 0, 4);
         
         grid.add(accu,3,0);
@@ -95,7 +95,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         swapButton.setOnAction(event -> handleOperationClick("swap",accu,pile));
         oppositeButton.setOnAction(event -> handleOperationClick("opposite",accu,pile));
         pointButton.setOnAction(event -> handleOperationClick(".",accu,pile));
-        equalsButton.setOnAction(event -> handleEqualsClick(accu,pile));
+        pushButton.setOnAction(event -> handlePushClick(accu,pile));
         clearButton.setOnAction(event -> handleClearClick(accu,pile));
 
         // Créez une scène
@@ -150,7 +150,8 @@ public class CalculatorGUI implements CalculatorGUInterface {
     	}
     }
 
-    private void handleEqualsClick(Text accu, Text pile) {
+    private void handlePushClick(Text accu, Text pile) {
+		controler.change(accu.getText());
     	change(controler.push(),pile);
 		accu.setText("0");
     }
@@ -169,6 +170,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
 	@Override
 	public void change(List<Double> stackData, Text pile) {
 		// TODO Auto-generated method stub
+		System.out.println(stackData);
 		StringBuilder pileText = new StringBuilder();
 		stackData.forEach(number->{
 			pileText.append(Double.toString(number)+" | ");

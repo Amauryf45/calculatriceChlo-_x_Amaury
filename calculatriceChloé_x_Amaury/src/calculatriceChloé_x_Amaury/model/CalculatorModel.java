@@ -18,6 +18,7 @@ public class CalculatorModel implements CalculatorModelInterface {
 			pileCalc.push(getAccu());
 			setAccu(0);
 		}
+		System.out.println("model pile : "+pileCalc);
 		return pileCalc;
 	}
 
@@ -87,7 +88,7 @@ public class CalculatorModel implements CalculatorModelInterface {
 		if(getAccu()==0) {
 			setAccu(pop());
 		}
-		setAccu(getAccu()-pop());
+		setAccu(pop()-getAccu());
 		push();
 		setAccu(0);
 		return(pileCalc);
@@ -111,7 +112,7 @@ public class CalculatorModel implements CalculatorModelInterface {
 		if(getAccu()==0) {
 			setAccu(pop());
 		}
-		setAccu(getAccu()/pop());
+		setAccu(pop()/getAccu());
 		push();
 		setAccu(0);
 		return(pileCalc);
@@ -131,8 +132,9 @@ public class CalculatorModel implements CalculatorModelInterface {
 		return accu;
 	}
 
-	public void setAccu(double accu) {
-		this.accu = accu;
+	public void setAccu(double newAccu) {
+		System.out.println("setAccu : "+newAccu);
+		accu = newAccu;
 	}
 
 }
