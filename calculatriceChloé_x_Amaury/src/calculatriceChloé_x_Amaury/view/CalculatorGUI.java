@@ -22,8 +22,6 @@ public class CalculatorGUI implements CalculatorGUInterface {
 	
 	private CalculatorControler controler;
 	
-	public Text zero = new Text("0");
-	
 	public CalculatorGUI() {
         // Initialize the controler
 		this.controler = new CalculatorControler();
@@ -51,6 +49,7 @@ public class CalculatorGUI implements CalculatorGUInterface {
         }
 
         Text accu = new Text("0");
+        Text pile = new Text("");
         
         Button addButton = new Button("+");
         Button subtractButton = new Button("-");
@@ -82,21 +81,22 @@ public class CalculatorGUI implements CalculatorGUInterface {
         grid.add(clearButton, 0, 4);
         
         grid.add(accu,3,0);
+        grid.add(pile, 0, 0);
 
         // Gérez les événements des boutons
         for (int i = 0; i < 10; i++) {
             final int number = i;
             numberButtons[i].setOnAction(event -> handleNumberClick(number,accu));
         }
-        addButton.setOnAction(event -> handleOperationClick("+",accu));
-        subtractButton.setOnAction(event -> handleOperationClick("-",accu));
-        multiplyButton.setOnAction(event -> handleOperationClick("*",accu));
-        divideButton.setOnAction(event -> handleOperationClick("/",accu));
-        swapButton.setOnAction(event -> handleOperationClick("swap",accu));
-        oppositeButton.setOnAction(event -> handleOperationClick("opposite",accu));
-        pointButton.setOnAction(event -> handleOperationClick(".",accu));
-        equalsButton.setOnAction(event -> handleEqualsClick(accu));
-        clearButton.setOnAction(event -> handleClearClick(accu));
+        addButton.setOnAction(event -> handleOperationClick("+",accu,pile));
+        subtractButton.setOnAction(event -> handleOperationClick("-",accu,pile));
+        multiplyButton.setOnAction(event -> handleOperationClick("*",accu,pile));
+        divideButton.setOnAction(event -> handleOperationClick("/",accu,pile));
+        swapButton.setOnAction(event -> handleOperationClick("swap",accu,pile));
+        oppositeButton.setOnAction(event -> handleOperationClick("opposite",accu,pile));
+        pointButton.setOnAction(event -> handleOperationClick(".",accu,pile));
+        equalsButton.setOnAction(event -> handleEqualsClick(accu,pile));
+        clearButton.setOnAction(event -> handleClearClick(accu,pile));
 
         // Créez une scène
         Scene scene = new Scene(grid, 300, 400);
@@ -112,34 +112,34 @@ public class CalculatorGUI implements CalculatorGUInterface {
 		accu.setText(accu.getText()+ String.valueOf(number));
     }
 
-    private void handleOperationClick(String operation, Text accu) {
+    private void handleOperationClick(String operation, Text accu, Text pile) {
     	switch (operation) {
     		case "+":
-    			controler.change(accu.getText());
-    			change(controler.add());
+    			controler.change(accu.getText()); //envoie accu au model
+    			change(controler.add(),pile); // met a jour la pile selon le retour du model
     			accu.setText("0");
     			break;
     		case "-":
     			controler.change(accu.getText());
-    			change(controler.substract());
+    			change(controler.substract(),pile);
     			accu.setText("0");
     			break;
     		case "*":
     			controler.change(accu.getText());
-    			change(controler.multiply());
+    			change(controler.multiply(),pile);
     			accu.setText("0");
     			break;
     		case "/":
     			controler.change(accu.getText());
-    			change(controler.divide());
+    			change(controler.divide(),pile);
     			accu.setText("0");
     			break;
     		case "swap":
-    			change(controler.swap());
+    			change(controler.swap(),pile);
     			break;
     		case "opposite":
     			controler.change(accu.getText());
-    			change(controler.opposite());
+    			change(controler.opposite(),pile);
     			accu.setText("0");
     			break;
     		case ".":
@@ -150,12 +150,14 @@ public class CalculatorGUI implements CalculatorGUInterface {
     	}
     }
 
-    private void handleEqualsClick(Text accu) {
-       	controler.push();
+    private void handleEqualsClick(Text accu, Text pile) {
+    	change(controler.push(),pile);
+		accu.setText("0");
     }
 
-    private void handleClearClick(Text accu) {
-        controler.clear();
+    private void handleClearClick(Text accu, Text pile) {
+        change(controler.clear(),pile);
+		accu.setText("0");
     }
 	
 
@@ -165,9 +167,14 @@ public class CalculatorGUI implements CalculatorGUInterface {
 	}
 
 	@Override
-	public void change(List<Double> stackData) {
+	public void change(List<Double> stackData, Text pile) {
 		// TODO Auto-generated method stub
-		
+		StringBuilder pileText = new StringBuilder();
+		stackData.forEach(number->{
+			pileText.append(Double.toString(number)+" | ");
+		});
+		System.out.println(pileText.toString());
+		pile.setText(pileText.toString());
 	}
 	
 	
