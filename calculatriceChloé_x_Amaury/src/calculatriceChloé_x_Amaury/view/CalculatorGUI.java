@@ -116,30 +116,30 @@ public class CalculatorGUI implements CalculatorGUInterface {
     	switch (operation) {
     		case "+":
     			controler.change(accu.getText());
-    			controler.add();
+    			change(controler.add());
     			accu.setText("0");
     			break;
     		case "-":
     			controler.change(accu.getText());
-    			controler.substract();
+    			change(controler.substract());
     			accu.setText("0");
     			break;
     		case "*":
     			controler.change(accu.getText());
-    			controler.multiply();
+    			change(controler.multiply());
     			accu.setText("0");
     			break;
     		case "/":
     			controler.change(accu.getText());
-    			controler.divide();
+    			change(controler.divide());
     			accu.setText("0");
     			break;
     		case "swap":
-    			controler.swap();
+    			change(controler.swap());
     			break;
     		case "opposite":
     			controler.change(accu.getText());
-    			controler.opposite();
+    			change(controler.opposite());
     			accu.setText("0");
     			break;
     		case ".":
@@ -162,7 +162,6 @@ public class CalculatorGUI implements CalculatorGUInterface {
 	@Override
 	public void change(String accu) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
